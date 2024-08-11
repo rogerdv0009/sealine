@@ -1,0 +1,54 @@
+/*** FOOTER ***/
+.footer{
+  background-color: rgb(21, 21, 21);
+  padding: 60px 0;
+  .elemento{
+    .logo_imagen{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .f_desarrollado{
+      margin: 20px 0;
+      p{
+        color: gray;
+        text-align: center;
+      }
+    }
+    .f_redes_sociales{
+      margin: 20px 0 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      .azul{
+        background-color: #4d70a8;
+      }
+      .azulc{
+        background-color: #02bcf3;
+      }
+      .rojo{
+        background-color: #e2411e;
+      }
+      .gray{
+        background-color: gray;
+      }
+      a{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 20px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        filter: grayscale(1);
+        transition: all .5s;
+        &:hover{
+          filter: grayscale(0);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,222 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Quienes Somos{% endblock title %}
+{% block contain %}
+
+<section class="buscar_listado" style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %});">
+    <div class="formulario_buscar">
+        <form class="fb_formulario" action="" method="get">
+            <h3>Sobre Nosotros</h3>
+        </form>
+    </div>
+</section>
+
+<section class="quienes_somos">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="qs_imagen">
+                    <img src="{% static "img/quienes_somos.png" %}" alt="">
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="qs_contenido">
+                    <div class="qs_titulo">
+                        <h3>Hola Somos Sealine</h3>
+                        <div class="divisor_decorador">
+                            <img src="{% static "img/divider-decorate.png" %}" alt="...">
+                        </div>
+                    </div>
+                    <div class="qs_mision">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo quas est unde animi consequatur
+                            aspernatur suscipit commodi ex a, officiis repudiandae perspiciatis! Repellat, architecto
+                            officiis.
+                        </p>
+                    </div>
+                    <div class="qs_vision">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo quas est unde animi consequatur
+                            aspernatur suscipit commodi ex a, officiis repudiandae perspiciatis! Repellat, architecto
+                            officiis.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="listado_teams">
+    <div class="container-fluid">
+        <div class="titulo_seccion">
+            <div class="ts_principal">
+                <h3>Conoce Nuestro Equipo</h3>
+                <div class="divisor_decorador img_mid">
+                    <img src="{% static "img/divider-decorate.png" %}" alt="...">
+                </div>
+            </div>
+            {% if request.user.is_superuser %}
+                <button type="button" class="submit_modal" onclick="CrearMiembro('{% url "Teams_Create" %}')">Crear <i class="fas fa-plus"></i></button>
+            {% endif %}
+        </div>
+        <div class="lt_listado">
+            <div class="row">
+                {% if object_list %}
+                {% for object in object_list %}
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                    <div class="team">
+                        <div class="team_imagen">
+                            {% if object.image %}
+                            <img src="/media/{{ object.image }}" alt="...">
+                            {% else %}
+                            <img src="{% static " img/sinfoto.png" %}" alt="...">
+                            {% endif %}
+                        </div>
+                        <div class="team_contenido">
+                            <div class="team_name">
+                                <h4>{{ object.name }}</h4>
+                            </div>
+                            {% if request.user.is_superuser %}
+                                <div class="team_opciones">
+                                    <button title="Editar" onclick="EditarMiembro('{% url "Teams_Update" object.id %}')" class="editar_color"><i class="fas fa-pencil"></i></button>
+                                    <button title="Eliminar" onclick="EliminarMiembro('{% url "Teams_Delete" object.id %}')" class="eliminar_color"><i class="fas fa-trash"></i></button>
+                                </div>
+                            {% endif %}
+                            <div class="team_job">
+                                <p>{{ object.job }}</p>
+                            </div>
+                            <div class="team_redes_sociales">
+                                <a href="{{ object.facebook }}" target="_blank" rel="noopener noreferrer"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a href="{{ object.twitter }}" target="_blank" rel="noopener noreferrer"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a href="{{ object.instagram }}" target="_blank" rel="noopener noreferrer"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a href="{{ object.google }}" target="_blank" rel="noopener noreferrer"><i
+                                        class="fab fa-google-plus-g"></i></a>
+                                <a href="{{ object.linkedin }}" target="_blank" rel="noopener noreferrer"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h2>No existen objetos de este tipo en la Base de Datos</h2>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="listado_testimonios">
+    <div class="container-fluid">
+        <div class="titulo_seccion">
+            <div class="ts_principal">
+                <h3>Testimonios</h3>
+                <div class="divisor_decorador img_mid">
+                    <img src="{% static "img/divider-decorate.png" %}" alt="...">
+                </div>
+            </div>
+            {% if request.user.is_superuser %}
+                <button type="button" class="submit_modal" onclick="CrearTestimonio('{% url "Testimonials_Create" %}')">Crear <i class="fas fa-plus"></i></button>
+            {% endif %}
+        </div>
+        <div class="lt_listado_testimonios">
+            <div class="row">
+                {% if testimonios %}
+                {% for testimonial in testimonios %}
+                <div class="col-12 col-md-6">
+                    <div class="testimonio">
+                        <div class="ts_imagen">
+                          {% if testimonial.image %}
+                            <img src="/media/{{ testimonial.image }}" alt="...">
+                          {% else %}
+                            <img src="{% static "img/sinfoto.png" %}" alt="...">
+                          {% endif %}
+                        </div>
+                        <div class="ts_contenido">
+                          <div class="ts_iconos">
+                            <i class="fas fa-quote-left"></i>
+                            {% if request.user.is_superuser %}
+                                <div class="ts_opciones">
+                                    <button title="Editar" onclick="EditarTestimonio('{% url "Testimonials_Update" testimonial.id %}')" class="editar_color"><i class="fas fa-pencil"></i></button>
+                                    <button title="Eliminar" onclick="EliminarTestimonio('{% url "Testimonials_Delete" testimonial.id %}')" class="eliminar_color"><i class="fas fa-trash"></i></button>
+                                </div>
+                            {% endif %}
+                          </div>
+                          <p>{{ testimonial.description }}</p>
+                          <h3>{{ testimonial.name }}</h3>
+                          <span>{{ testimonial.job }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h2>No existen objetos de este tipo en la Base de Datos</h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment "Modales para los Teams" %}{% endcomment %}
+<div class="modal fade" id="crear_miembro" role="dialog">
+
+</div>
+<div class="modal fade" id="editar_miembro" role="dialog">
+
+</div>
+<div class="modal fade" id="eliminar_miembro" role="dialog">
+
+</div>
+
+{% comment "Modales para los Testimonios" %}{% endcomment %}
+<div class="modal fade" id="crear_testimonio" role="dialog">
+
+</div>
+<div class="modal fade" id="editar_testimonio" role="dialog">
+
+</div>
+<div class="modal fade" id="eliminar_testimonio" role="dialog">
+
+</div>
+{% endblock contain %}
+{% block javascript %}
+<script type="application/javascript">
+    function CrearMiembro(url) {
+        $('#crear_miembro').load(url, function () {
+            $('#crear_miembro').modal('show');
+        });
+    }
+    function EditarMiembro(url) {
+        $('#editar_miembro').load(url, function () {
+            $('#editar_miembro').modal('show');
+        });
+    }
+    function EliminarMiembro(url) {
+        $('#eliminar_miembro').load(url, function () {
+            $('#eliminar_miembro').modal('show');
+        });
+    }
+
+
+    function CrearTestimonio(url) {
+        $('#crear_testimonio').load(url, function () {
+            $('#crear_testimonio').modal('show');
+        });
+    }
+    function EditarTestimonio(url) {
+        $('#editar_testimonio').load(url, function () {
+            $('#editar_testimonio').modal('show');
+        });
+    }
+    function EliminarTestimonio(url) {
+        $('#eliminar_testimonio').load(url, function () {
+            $('#eliminar_testimonio').modal('show');
+        });
+    }
+</script>
+{% endblock javascript %}

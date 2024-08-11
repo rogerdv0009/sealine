@@ -1,0 +1,117 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Comentarios{% endblock title %}
+{% block contain %}
+
+<section class="buscar_listado" style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %});">
+    <div class="formulario_buscar">
+        <form class="fb_formulario" action="" method="get">
+            <h3>Comentarios</h3>
+        </form>
+    </div>
+</section>
+
+<section class="listado_tickets">
+    <div class="titulo_seccion">
+        <div class="ts_principal">
+            <h3>Listado de comentarios existentes</h3>
+            <div class="divisor_decorador img_mid">
+                <img src="{% static "img/divider-decorate.png" %}" alt="...">
+            </div>
+        </div>
+        <button type="button" class="submit_modal" onclick="CrearComentario('{% url "Comments_Create" %}')">Crear <i class="fas fa-plus"></i></button>
+        <form class="filtrar_c" action="{% url 'Comments_List' %}" method="get">
+            {% csrf_token %}
+            <select class="form-control" name="select_filtrado" id="revisado">
+                <option value="General">General</option>
+                <option value="True">Aprobados</option>
+                <option value="False">Sin aprobar</option>
+            </select>
+            <button type="submit" class="btn btn-warning"><i class="fas fa-filter"></i></button>
+        </form>
+    </div>
+    <div class="container">
+        <div class="tabla_usuarios">
+          <table class="tabla_usuario" id="tabla_comments">
+              <thead>
+                  {% block columns %}
+                      <tr>
+                          <th style="width: 10%; padding: 3px;  border-bottom: 1px solid black;">Correo</th>
+                          <th style="width: 30%; padding: 3px;  border-bottom: 1px solid black;">Descripción</th>
+                          <th style="width: 20%; padding: 3px;  border-bottom: 1px solid black;">Noticia</th>
+                          <th style="width: 10%; padding: 3px; text-align: center; border-bottom: 1px solid black;">Fecha</th>
+                          <th style="width: 30%; padding: 3px; text-align: center; border-bottom: 1px solid black;">Acción</th>
+                      </tr>
+                  {% endblock %}
+              </thead>
+              <tbody>
+                  {% block rows %}
+                      {% if object_list %}
+                          {% for object in object_list %}
+                              <tr class="fila">
+                                    <td style="width: 20%;">{{ object.email }}</td>
+                                    <td style="width: 40%; padding: 0 5px;">{{ object.description }}</td>
+                                    <td style="width: 20%; text-align: center;">{{ object.new }}</td>
+                                    <td style="width: 10%; text-align: center;">{{ object.created_date }}</td>
+                                    <td style="width: 10%; text-align: center;">
+                                        <button title="Editar" type="button" onclick="EditarComentario('{% url "Comments_Update" object.id %}')" class="editar_color"><i class="fas fa-pencil"></i></button>
+                                        <button title="Eliminar" type="button" onclick="EliminarComentario('{% url "Comments_Delete" object.id %}')" class="eliminar_color"><i class="fas fa-trash"></i></button>
+                                        {% if object.check_comment == False %}
+                                            <a title="Aprobar" href="{% url "Comments_Check" object.id %}" class="aprobar_color"><i class="fas fa-check-circle"></i></a>
+                                        {% else %}
+                                            <i class="fas fa-bookmark"></i>
+                                        {% endif %}
+                                    </td>
+                              </tr>
+                          {% endfor %}
+                      {% else %}
+                        <h2>No existen Comentarios creados en la Base de Datos</h2>
+                      {% endif %}
+                  {% endblock %}
+              </tbody>
+          </table>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="crear_comentario_admin" role="dialog">
+
+</div>
+<div class="modal fade" id="editar_comentario" role="dialog">
+
+</div>
+<div class="modal fade" id="eliminar_comentario" role="dialog">
+
+</div>
+{% endblock contain %}
+{% block javascript %}
+    <script type="application/javascript">
+        function CrearComentario(url){
+            $('#crear_comentario_admin').load(url, function(){
+                $('#crear_comentario_admin').modal('show');
+            });
+        }
+        function EditarComentario(url){
+            $('#editar_comentario').load(url, function(){
+                $('#editar_comentario').modal('show');
+            });
+        }
+        function EliminarComentario(url){
+            $('#eliminar_comentario').load(url, function(){
+                $('#eliminar_comentario').modal('show');
+            });
+        }
+    </script>
+    <script type="application/javascript">
+        $(function () {
+            $('#tabla_comments').DataTable({
+                responsive: true,
+                autoWidth: false,
+            });
+        });
+    </script>
+    <script src="{% static 'libraries/datatable/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'libraries/datatable/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'libraries/datatable/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'libraries/datatable/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
+{% endblock javascript %}

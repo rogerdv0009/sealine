@@ -1,0 +1,41 @@
+{% load static %}
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Editar Tour <i class="primary_color fas fa-map-marked-alt"></i></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'Tours_Update' object.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="container">
+                        {{ form.as_p }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger btn-lg" type="button" data-bs-dismiss="modal">Cancelar <i class="fas fa-ban"></i></button>
+                    <button class="submit_modal" type="submit">Editar Tour <i class="fas fa-save"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'library/sweetalert2/sweetalert2.all.min.js' %}"></script>
+    <script type="application/javascript">
+        {% if form.errors %}
+            let errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+              });
+        {% endif %}
+    </script>

@@ -1,0 +1,70 @@
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticación Sealine</title>
+    <link rel="shortcut icon" href="{% static 'img/logo-inverse.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'libraries/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'libraries/fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'libraries/sweetalert/sweetalert2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="body" style="background-image: url('{% static "img/imagen_login.jpg" %}');">
+
+    <div class="contenedor_login">
+        <div class="logo_img_login">
+            <img src="{% static "img/logo.png" %}" alt="">
+        </div>
+        <hr>
+        <div class="formulario_login">
+            <form class="formulario" action="{% url "Login" %}" method="post">
+                {% csrf_token %}
+                <div class="fl_flex">
+                    <div class="fl_flex_primero">
+                        <div class="username_password_login">
+                            <label for="username">Usuario</label>
+                            {{ form.username }}
+                        </div>
+                        <div class="username_password_login">
+                            <label for="password">Contraseña</label>
+                            {{ form.password }}
+                        </div>
+                    </div>
+                </div>
+                <div class="submit_login">
+                    <button type="submit">Autenticarse </button>
+                </div>
+            </form>
+        </div>
+        <div class="registro_usuario">
+            <p>No tienes una cuenta creada, oprime aqui para registrarte</p> <a href="{% url "Register" %}">Registrarse</a>
+        </div>
+    </div>
+    <script src="{% static 'libraries/sweetalert/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <script>
+        {% if messages %}
+        let html_messages = '';
+        {% for message in messages %}
+            html_messages += '{{ message }}\n';
+        {% endfor %}
+            notificationSuccess(html_messages);
+        {% endif %}
+    </script>
+    <script type="application/javascript">
+        {% if form.errors %}
+            let errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            notificationSuccess(errors);
+        {% endif %}
+    </script>
+</body>
+</html>

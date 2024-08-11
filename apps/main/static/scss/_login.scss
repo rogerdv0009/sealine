@@ -1,0 +1,143 @@
+/***LOGIN***/
+.body{
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .contenedor_login{
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+    gap: 10px;
+    .logo_img_login{
+      img{
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+    hr{
+      color: white;
+      width: 100%;
+    }
+    .formulario_login{
+      width: 100%;
+      .formulario{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        gap: 20px;
+        .fl_flex{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          gap: 20px;
+          width: 100%;
+          .fl_flex_primero{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            gap: 20px;
+            .username_password_login{
+              display: flex;
+              flex-direction: column;
+              align-items: start;
+              justify-content: start;
+              gap: 10px;
+              width: 100%;
+              label{
+                font-size: 16px;
+                font-weight: 600;
+                color: white;
+              }
+              input{
+                border-radius: 8px;
+                width: 300px;
+                padding: 0 20px;
+                height: 40px;
+                border: 1px solid $color_primario;
+              }
+            }
+          }
+          .fl_flex_segundo{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            gap: 20px;
+            .username_password_login{
+              display: flex;
+              flex-direction: column;
+              align-items: start;
+              justify-content: start;
+              gap: 10px;
+              width: 100%;
+              label{
+                font-size: 16px;
+                font-weight: 600;
+                color: white;
+              }
+              input{
+                border-radius: 8px;
+                width: 300px;
+                padding: 0 20px;
+                height: 40px;
+                border: 1px solid $color_primario;
+              }
+            }
+          }
+        }
+        .submit_login{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          button{
+            text-transform: uppercase;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            background-color: $color_primario;
+            padding: 10px 30px;
+            transition: all .5s;
+            &:hover{
+              background-color: $color_secundario;
+            }
+          }
+        }
+      }
+    }
+    .registro_usuario{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      p{
+        font-size: 14px;
+        color: white;
+        margin: 0;
+      }
+      a{
+        color: $color_secundario;
+        transition: all .5s;
+        &:hover{
+          color: $color_primario;
+        }
+      }
+    }
+  }
+}

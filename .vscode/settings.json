@@ -1,0 +1,25 @@
+{
+    "liveSassCompile.settings.compileOnWatch": false,
+    "liveSassCompile.settings.watchOnLaunch": false,
+    "liveSassCompile.settings.useNewCompiler": true,
+    "liveSassCompile.settings.showOutputWindowOn": "Debug",
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": "/apps/main/static/css",
+            "savePathReplacementPairs": null
+        }
+    ],
+
+    "liveSassCompile.settings.includeItems": [
+        "/apps/main/static/scss/style.scss",
+    ],
+
+    "liveSassCompile.settings.partialsList": [
+        "/apps/main/static/scss/*/*",
+    ],
+    "twiggy.framework": "ignore",
+    "git.ignoreLimitWarning": true
+
+}

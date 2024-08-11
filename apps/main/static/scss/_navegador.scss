@@ -1,0 +1,52 @@
+/***NAVEGADOR***/
+.header{
+  .navbar_top{
+    display: none;
+  }
+  .navbar{
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.2);
+    .nav_logo{
+      img{
+        max-width: 100%;
+        height: 40px;
+        object-fit: cover;
+      }
+    }
+    #navbarNav{
+      .nav_listado{
+        margin: 10px 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        li{
+          width: 100%;
+          &:first-child{
+            a{
+              background-color: $color_secundario;
+              color: white;
+            }
+          }
+          a{
+            display: flex;
+            width: 100%;
+            padding: 10px;
+            color: black;
+            justify-content: space-between;
+            align-items: center;
+            transition: all .5s;
+            &:hover{
+              background-color: $color_secundario;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+    .nav_enlace{
+      display: none;
+    }
+  }
+}

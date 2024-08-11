@@ -1,0 +1,154 @@
+<html lang="es">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock title %}</title>
+  <link rel="shortcut icon" href="{% static "img/logo.png" %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static "libraries/sweetalert/sweetalert2.min.css" %}">
+  <link rel="stylesheet" href="{% static "libraries/fontawesome/css/all.min.css" %}">
+  <link rel="stylesheet" href="{% static "libraries/bootstrap/css/bootstrap.min.css" %}">
+  {% block styles %}{% endblock styles %}
+  <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+
+<body>
+  <header class="header">
+    <div class="navbar_top">
+      <div class="container-fluid nt_contenedor">
+        <div class="nt_contacto">
+          <div class="nt_c_info">
+            <i class="fas fa-phone"></i>
+            <p>1-800-1234-567</p>
+            <p>1-800-6780-345</p>
+          </div>
+          <div class="nt_c_info">
+            <i class="fas fa-map-marker-alt"></i>
+            <p>2130 Fulton Street, San Diego, CA 94117-1080 USA</p>
+          </div>
+          <div class="nt_c_info">
+            <i class="fas fa-envelope"></i>
+            <p>mail@demolink.org</p>
+          </div>
+        </div>
+        <div class="nt_redes_sociales">
+          <a class="fab fa-facebook-f" href="http://" target="_blank" rel="noopener noreferrer"></a>
+          <a class="fab fa-twitter" href="http://" target="_blank" rel="noopener noreferrer"></a>
+          <a class="fab fa-instagram" href="http://" target="_blank" rel="noopener noreferrer"></a>
+          <a class="fab fa-google-plus-g" href="http://" target="_blank" rel="noopener noreferrer"></a>
+          <a class="fab fa-linkedin-in" href="http://" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid nt_contenedor">
+        <a class="nav_logo" href="{% url "Main" %}">
+          <img src="{% static "img/logo.png" %}" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="nav_listado">
+            <li>
+              <a href="{% url "Main" %}">Inicio <i class="lg_ocultar fas fa-home"></i></a>
+            </li>
+            <li>
+              <a href="{% url "Teams_List" %}">Sobre Nosotros <i class="lg_ocultar fas fa-users"></i></a>
+            </li>
+            <li>
+              <a href="{% url "Tours_List" %}">Tours <i class="lg_ocultar fas fa-map-marked-alt"></i></a>
+            </li>
+            <li>
+              <a href="{% url "Services_List" %}">Servicios <i class="lg_ocultar fas fa-paste"></i></a>
+            </li>
+            <li>
+              <a href="{% url "News_List" %}">Noticias <i class="lg_ocultar fas fa-chalkboard-teacher"></i></a>
+            </li>
+            {% if request.user.is_superuser %}
+              <li>
+                <a href="{% url "Tickets_List" %}">Tickets <i class="lg_ocultar fas fa-ticket-alt"></i></a>
+              </li>
+              <li>
+                <a href="{% url "Users_List" %}">Usuarios <i class="lg_ocultar fas fa-user"></i></a>
+              </li>
+            {% elif request.user.username %}
+              <li>
+                <a href="{% url "Tickets_User_List" %}">Tickets <i class="lg_ocultar fas fa-ticket-alt"></i></a>
+              </li>
+            {% endif %}
+            <hr>
+            {% if request.user.username %}
+              <li>
+                <a class="lg_ocultar" href="{% url "Logout" %}">Desloguearse <i class="fas fa-share-square"></i></a>
+              </li>
+            {% else %}
+              <li>
+                <a class="lg_ocultar" href="{% url "Login" %}">Autenticarse <i class="fas fa-sign-in"></i></a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+        {% if request.user.username %}
+          <a href="{% url "Logout" %}" title="Desloguearse" class="nav_enlace user_avatar">
+            {% if request.user.avatar %}
+              <img src="/media/{{ request.user.avatar }}" alt="...">
+            {% else %}
+              <img src="{% static "img/sinfoto.png" %}" alt="...">
+            {% endif %}
+          </a>
+        {% else %}
+          <a href="{% url "Login" %}" class="nav_enlace ts_link">Autenticarse</a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+  {% block contain %}{% endblock contain %}
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="elemento col-12 col-lg-4">
+          <div class="logo_imagen">
+            <a href="{% url "Main" %}">
+              <img src="{% static "img/logo-inverse.png" %}" alt="">
+            </a>
+          </div>
+        </div>
+        <div class="elemento col-12 col-lg-4">
+          <div class="f_desarrollado">
+            <p>
+              2024 Todos los derechos reservados. Desarrollado por RogerDV
+            </p>
+          </div>
+        </div>
+        <div class="elemento col-12 col-lg-4">
+          <div class="f_redes_sociales">
+            <a class="azul fab fa-facebook-f" href="http://" target="_blank" rel="noopener noreferrer"></a>
+            <a class="azulc fab fa-twitter" href="http://" target="_blank" rel="noopener noreferrer"></a>
+            <a class="gray fab fa-instagram" href="http://" target="_blank" rel="noopener noreferrer"></a>
+            <a class="rojo fab fa-google-plus-g" href="http://" target="_blank" rel="noopener noreferrer"></a>
+            <a class="azul fab fa-linkedin-in" href="http://" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="{% static "libraries/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "libraries/bootstrap/js/bootstrap.bundle.js" %}"></script>
+  <script src="{% static "libraries/swiper/js/swiper-bundle.min.js" %}"></script>
+  <script src="{% static "libraries/sweetalert/sweetalert2.all.min.js" %}"></script>
+  <script src="{% static "js/main.js" %}"></script>
+  <script>
+    {% if messages %}
+      let html_messages = '';
+      {% for message in messages %}
+        html_messages += '{{ message }}\n';
+      {% endfor %}
+      notificationSuccess(html_messages);
+    {% endif %}
+  </script>
+  {% block javascript %}{% endblock javascript %}
+</body>
+
+</html>

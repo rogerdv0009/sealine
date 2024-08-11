@@ -1,0 +1,32 @@
+/***RESPONSIVE SM***/
+@media (min-width: 576px) {
+  /***PROMOTIONS***/
+  .promociones{
+    .mySwiperPromotion{
+      .card_wrapper{
+        .swiper-slide{
+          .promocion{
+            .contenido_promocion{
+              padding: 100px 20px 30px;
+              .cp_titulo{
+                h3{
+                  font-weight: 700;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  /***NEWS***/
+  /* .seccion_noticias {
+   .contenedor_noticias {
+     .mySwiperNews {
+       .card-wrapper {
+         margin: 0 0 50px;
+      }
+     }
+    }
+  }*/
+}

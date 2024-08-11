@@ -1,0 +1,106 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Listado Usuarios{% endblock title %}
+{% block contain %}
+    <section class="buscar_listado" style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %});">
+      <div class="formulario_buscar">
+          <form class="fb_formulario" action="" method="get">
+              <h3>Usuarios</h3>
+          </form>
+      </div>
+    </section>
+    <section class="listado_usuarios">
+        <div class="completo_listado">
+              <div class="titulo_seccion">
+                <div class="ts_principal">
+                    <h3>Listado de usuarios existentes</h3>
+                    <div class="divisor_decorador img_mid">
+                        <img src="{% static "img/divider-decorate.png" %}" alt="...">
+                    </div>
+                </div>
+                <button type="button" class="submit_modal" onclick="CrearUsuario('{% url "Users_Create" %}')">Crear <i class="fas fa-plus"></i></button>
+              </div>
+              <div class="container">
+                <div class="tabla_usuarios">
+                  <table class="tabla_usuario" id="tabla_usuario">
+                      <thead>
+                          {% block columns %}
+                              <tr>
+                                  <th style="width: 10%; padding: 3px;  border-bottom: 1px solid black;">ID</th>
+                                  <th style="width: 20%; padding: 3px;  border-bottom: 1px solid black;">Username</th>
+                                  <th style="width: 20%; padding: 3px;  border-bottom: 1px solid black;">Super Usuario</th>
+                                  <th style="width: 20%; padding: 3px; text-align: center; border-bottom: 1px solid black;">Email</th>
+                                  <th style="width: 30%; padding: 3px; text-align: center; border-bottom: 1px solid black;">Acción</th>
+                              </tr>
+                          {% endblock %}
+                      </thead>
+                      <tbody>
+                          {% block rows %}
+                              {% if object_list %}
+                                  {% for usuario in object_list %}
+                                      <tr class="fila">
+                                          <td style="width: 10%;">{{ usuario.pk }}</td>
+                                          <td style="width: 20%;">{{ usuario.username }}</td>
+                                          <td style="width: 20%;">{{ usuario.is_superuser }}</td>
+                                          <td style="width: 20%;">{{ usuario.email }}</td>
+                                          <td style="width: 30%; text-align: center;">
+                                              <button title="Editar" type="button" onclick="EditarUsuario('{% url "Users_Update" usuario.pk %}')" class="editar_color"><i class="fas fa-pencil"></i></button>
+                                              <button title="Eliminar" type="button" onclick="EliminarUsuario('{% url "Users_Delete" usuario.pk %}')" class="eliminar_color"><i class="fas fa-trash"></i></button>
+                                          </td>
+                                      </tr>
+                                  {% endfor %}
+                              {% else %}
+                                <h2>No existen usuarios creados en la Base de Datos</h2>
+                              {% endif %}
+                          {% endblock %}
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="crear_usuario" role="dialog">
+
+        </div>
+        <div class="modal fade" id="editar_usuario" role="dialog">
+
+        </div>
+        <div class="modal fade" id="eliminar_usuario" role="dialog">
+
+        </div>
+    </section>
+
+{% endblock contain %}
+
+{% block javascript %}
+<script type="application/javascript">
+    function CrearUsuario(url){
+        $('#crear_usuario').load(url, function(){
+            $('#crear_usuario').modal('show');
+        });
+    }
+    function EditarUsuario(url){
+        $('#editar_usuario').load(url, function(){
+            $('#editar_usuario').modal('show');
+        });
+    }
+    function EliminarUsuario(url){
+        $('#eliminar_usuario').load(url, function(){
+            $('#eliminar_usuario').modal('show');
+        });
+    }
+</script>
+<script type="application/javascript">
+    $(function () {
+        $('#tabla_usuario').DataTable({
+            responsive: true,
+            autoWidth: false,
+        });
+    });
+</script>
+<script src="{% static 'libraries/datatable/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+<script src="{% static 'libraries/datatable/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'libraries/datatable/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'libraries/datatable/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
+{% endblock javascript %}

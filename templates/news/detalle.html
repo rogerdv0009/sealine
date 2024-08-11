@@ -1,0 +1,92 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Detalle de la noticia con id {{ object.id }}{% endblock title %}
+{% block contain %}
+
+<section class="detalle_contenido">
+    <div class="completo_detalle">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="dc_contenido">
+                        <div class="dc_titulo_c">
+                            <h2>{{ object.title }}</h2>
+                        </div>
+                        <div class="dc_descripcion_c">
+                            <p>{{ object.description }}</p>
+                        </div>
+                        <div class="dc_precio_c">
+                            <p>Fecha: {{ object.date }}</p>
+                        </div>
+                        <div class="dc_categoria_c">
+                            <p>Categoría: {{ object.category }}</p>
+                        </div>
+                        <div class="dc_categoria_c">
+                            <p>Autor: {{ object.autor }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="dc_imagen_detalle">
+                        {% if object.image %}
+                            <img src="/media/{{ object.image }}" alt="...">
+                        {% else %}
+                            <img src="{% static "img/sinfoto.png" %}" alt="...">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="listado_comentarios">
+    <div class="titulo_seccion">
+        <div class="ts_principal">
+            <h3>Comentarios</h3>
+            <div class="divisor_decorador img_mid">
+                <img src="{% static "img/divider-decorate.png" %}" alt="...">
+            </div>
+        </div>
+        <button type="button" class="submit_modal" onclick="CrearComentarioUser('{% url "Comments_User_Create" object.id %}')">Crear <i class="fas fa-plus"></i></button>
+    </div>
+    <div class="contenedor_listado">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% if comments %}
+                    {% for comment in comments %}
+                        <div class="col-12">
+                            <div class="comentario">
+                                <div class="comentario_email_fecha">
+                                    <h4>{{ comment.email }}</h4>
+                                    <h5>{{ comment.created_date }}</h5>
+                                </div>
+                                <div class="comentario_descripcion">
+                                    <p>{{ comment.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <h2>No existen comentarios realizados y aprobados para esta noticia</h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment "Modales para los Comentarios" %}{% endcomment %}
+<div class="modal fade" id="crear_comentario" role="dialog">
+
+</div>
+{% endblock contain %}
+
+{% block javascript %}
+<script type="application/javascript">
+    function CrearComentarioUser(url) {
+        $('#crear_comentario').load(url, function () {
+            $('#crear_comentario').modal('show');
+        });
+    }
+</script>
+{% endblock javascript %}

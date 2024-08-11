@@ -1,0 +1,265 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Sealine{% endblock title %}
+{% block styles %}
+<link rel="stylesheet" href="{% static "libraries/swiper/css/swiper-bundle.min.css" %}">
+{% endblock styles %}
+{% block contain %}
+
+<section class="promociones">
+  <!-- Swiper Promotions-->
+  <div class="swiper mySwiperPromotion">
+    <div class="card_wrapper swiper-wrapper">
+      {% if promotions %}
+        {% for promotion in promotions %}
+          <div class="swiper-slide">
+            <div class="promocion">
+              {% if promotion.image %}
+                <img src="/media/{{ promotion.image }}" alt="...">
+              {% else %}
+                  <img src="{% static "img/sinfoto.png" %}" alt="...">
+              {% endif %}
+              <div class="contenido_promocion">
+                <div class="cp_titulo">
+                  <h3>{{ promotion.title }}</h3>
+                  <div class="divisor_decorador">
+                    <img src="{% static "img/divider-decorate.png" %}" alt="...">
+                  </div>
+                </div>
+                <div class="cp_descripcion">
+                  <p>{{ promotion.description }}</p>
+                </div>
+                <a href="{% url 'Promotions_Detail' promotion.id %}" class="cp_link">Saber más</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</section>
+
+<section class="formulario_tours">
+  <form action="{% url "Tickets_Create_Index" %}" method="post" class="ft_form">
+    {% csrf_token %}
+    <div class="ft_titulo_form">
+      <h3>Encuentra tu tour</h3>
+    </div>
+    <div class="ft_primero">
+      <label for="ft_from">De</label>
+      {{ formulario.ft_from }}
+    </div>
+    <div class="ft_primero">
+      <label for="ft_to">Para</label>
+      {{ formulario.ft_to }}
+    </div>
+    <div class="ft_segundo">
+      <div class="ft_s_date">
+        <label for="ft_date">Fecha</label>
+        {{ formulario.ft_date }}
+      </div>
+      <div class="ft_s_date">
+        <label for="ft_duration">Duración</label>
+        {{ formulario.ft_duration }}
+      </div>
+    </div>
+    <div class="ft_segundo">
+      <div class="ft_s_date">
+        <label for="ft_adults">Adultos</label>
+        {{ formulario.ft_adults }}
+      </div>
+      <div class="ft_s_date">
+        <label for="ft_children">Niños</label>
+        {{ formulario.ft_children }}
+      </div>
+    </div>
+    <input type="hidden" value="{{ request.user.pk }}" name="ft_user">
+    <button type="submit" class="ft_submit">Buscar Vuelo</button>
+  </form>
+</section>
+
+<main class="seccion_tours">
+  <div class="container-fluid">
+    <div class="titulo_seccion">
+      <div class="ts_tours">
+        <h3>Nuestros Mejores Tours</h3>
+        <div class="divisor_decorador">
+          <img src="{% static "img/divider-decorate.png" %}" alt="...">
+        </div>
+      </div>
+      <a href="{% url "Tours_List" %}" class="ts_link">Ver todos los tours</a>
+    </div>
+    <div class="contenedor_tours">
+      <div class="row">
+        {% if tours %}
+          {% for tour in tours %}
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="tour">
+                <div class="imagen_tour">
+                  {% if tour.image %}
+                    <img src="/media/{{ tour.image }}" alt="...">
+                  {% else %}
+                    <img src="{% static "img/sinfoto.png" %}" alt="...">
+                  {% endif %}
+                  <div class="link_dentro">
+                    <a href="{% url "Tours_Detail" tour.id %}" class="ts_link">Saber más</a>
+                  </div>
+                </div>
+                <div class="contenido_tour">
+                  <div class="ct_titulo">
+                    <a href="#"><h5>{{ tour.title }}</h5></a>
+                  </div>
+                  <div class="ct_precio">
+                    <h5>From ${{ tour.price }}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+
+<section class="seccion_servicios">
+  <div class="titulo_seccion">
+    <div class="ts_principal">
+      <h3>Nuestros Servicios</h3>
+      <div class="divisor_decorador">
+        <img src="{% static "img/divider-decorate.png" %}" alt="...">
+      </div>
+    </div>
+  </div>
+  <div class="contenedor_servicios">
+    <div class="container-fluid">
+      <div class="row">
+        {% if services %}
+          {% for service in services %}
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+              <div class="servicio">
+                <div class="sv_icono">
+                  <i class="{{ service.icon }}"></i>
+                </div>
+                <div class="sv_titulo">
+                  <h4>{{ service.title }}</h4>
+                </div>
+                <hr>
+                <div class="sv_descripcion">
+                  <p>{{ service.description }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion_noticias">
+  <div class="titulo_seccion">
+    <div class="ts_principal">
+      <h3>Últimas Noticias</h3>
+      <div class="divisor_decorador">
+        <img src="{% static "img/divider-decorate.png" %}" alt="...">
+      </div>
+    </div>
+  </div>
+  <div class="contenedor_noticias">
+    <div class="container-fluid">
+      <!-- Swiper -->
+      <div class="swiper mySwiperNews">
+        <div class="card-wrapper swiper-wrapper">
+          {% if news %}
+            {% for new in news %}
+              <div class="swiper-slide">
+                <div class="noticia">
+                  <div class="ntc_imagen">
+                    {% if new.image %}
+                      <img src="/media/{{ new.image }}" alt="...">
+                    {% else %}
+                      <img src="{% static "img/sinfoto.png" %}" alt="...">
+                    {% endif %}
+                  </div>
+                  <div class="ntc_contenido">
+                    <div class="ntc_c_autor_categoria">
+                      <a href="#" class="ntc_c_categoria">{{ new.category }}</a>
+                      <div class="ntc_c_autor">
+                        <p>por <a href="#">{{ new.autor }}</a></p>
+                      </div>
+                    </div>
+                    <div class="ntc_c_titulo">
+                      <a href="{% url "News_Detail" new.id %}"><h4>{{ new.title }}</h4></a>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="ntc_final">
+                    <div class="ntc_f_fecha">
+                      <p>{{ new.date }}</p>
+                    </div>
+                    <div class="ntc_f_comentarios">
+                      <i class="fas fa-comment-alt"></i>
+                      <a href="#">12</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+  <div class="noticias_ver_mas">
+    <a class="ts_link" href="{% url "News_List" %}">Ver todos los blogs</a>
+  </div>
+</section>
+
+<section class="seccion_testimonios">
+  <div class="titulo_seccion">
+    <div class="ts_principal">
+      <h3>Testimonios</h3>
+      <div class="divisor_decorador">
+        <img src="{% static "img/divider-decorate.png" %}" alt="...">
+      </div>
+    </div>
+  </div>
+  <div class="contenedor_testimonios">
+    <div class="container">
+      <!-- Swiper -->
+      <div class="swiper mySwiperTestimonials">
+        <div class="card-wrapper swiper-wrapper">
+          {% if testimonials %}
+            {% for testimonial in testimonials %}
+              <div class="swiper-slide">
+                <div class="testimonio">
+                  <div class="ts_imagen">
+                    {% if testimonial.image %}
+                      <img src="/media/{{ testimonial.image }}" alt="...">
+                    {% else %}
+                      <img src="{% static "img/sinfoto.png" %}" alt="...">
+                    {% endif %}
+                  </div>
+                  <div class="ts_contenido">
+                    <i class="fas fa-quote-left"></i>
+                    <p>{{ testimonial.description }}</p>
+                    <h3>{{ testimonial.name }}</h3>
+                    <span>{{ testimonial.job }}</span>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock contain %}

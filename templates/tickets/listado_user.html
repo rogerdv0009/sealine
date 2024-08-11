@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Tickets{% endblock title %}
+{% block contain %}
+
+<section class="buscar_listado" style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %});">
+    <div class="formulario_buscar">
+        <form class="fb_formulario" action="" method="get">
+            <h3>Tickets</h3>
+        </form>
+    </div>
+</section>
+
+<section class="listado_ticket_user">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            {% if object_list %}
+                {% for object in object_list %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="ticket">
+                            <figure class="ticket_imagen">
+                                <img src="{% static "img/logo.png" %}" alt="">
+                            </figure>
+                            <hr>
+                            <div class="ticket_contenido">
+                                <div class="tc_from">
+                                    <p>Salida: {{ object.ft_from }}</p>
+                                </div>
+                                <div class="tc_from">
+                                    <p>Destino: {{ object.ft_to }}</p>
+                                </div>
+                                <div class="tc_from">
+                                    <h3>{{ object.ft_date }}</h3>
+                                </div>
+                                <div class="tc_from">
+                                    <p>Duración: {{ object.ft_duration }}</p>
+                                </div>
+                                <div class="tc_adults">
+                                    <div class="tc_from">
+                                        <p>Adultos: {{ object.ft_adults }}</p>
+                                    </div>
+                                    <div class="tc_from">
+                                        <p>Niños: {{ object.ft_children }}</p>
+                                    </div>
+                                </div>
+                                <div class="tc_icono">
+                                    {% if object.ft_check == True %}
+                                        <i title="Aprobada" class="color_verde fas fa-check-circle"></i>
+                                    {% else %}
+                                        <i title="En espera" class="color_amarillo fas fa-exclamation-circle"></i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2>No ha solicitado ningún ticket hasta el momento</h2>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock contain %}

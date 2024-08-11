@@ -1,0 +1,37 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Detalle de la promocion con id {{ object.id }}{% endblock title %}
+{% block contain %}
+
+<section class="detalle_contenido">
+    <div class="completo_detalle">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="dc_contenido">
+                        <div class="dc_titulo_c">
+                            <h2>{{ object.title }}</h2>
+                        </div>
+                        <div class="dc_descripcion_c">
+                            <p>{{ object.description }}</p>
+                        </div>
+                        <div class="dc_precio_c">
+                            <p>From: ${{ object.price }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="dc_imagen_detalle">
+                        {% if object.image %}
+                            <img src="/media/{{ object.image }}" alt="...">
+                        {% else %}
+                            <img src="{% static "img/sinfoto.png" %}" alt="...">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock contain %}

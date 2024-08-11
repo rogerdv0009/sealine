@@ -1,0 +1,116 @@
+/***TICKETS ADMINISTRADOR***/
+.listado_tickets {
+  padding: 60px 0;
+
+  .tabla_usuarios {
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #tabla_tickets_wrapper {
+      width: 100%;
+
+      .tabla_usuario {
+        width: 100%;
+        margin: 20px 0;
+
+        tbody {
+          .odd {
+            height: 40px;
+            background-color: transparent;
+            color: black;
+          }
+
+          .even {
+            height: 40px;
+            background-color: whitesmoke;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+/***TICKETS USUARIO***/
+.listado_ticket_user {
+  padding: 60px 0;
+  .ticket{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    transition: all .5s;
+    &:hover{
+      border: 1px solid transparent;
+      box-shadow: 0 0 20px $color_secundario;
+    }
+    .ticket_imagen{
+      img{
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+    hr{
+      width: 100%;
+      color: black;
+    }
+    .ticket_contenido{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: space-between;
+      gap: 10px;
+      .tc_from{
+        p{
+          margin: 0;
+          text-align: center;
+        }
+        h3{
+          color: $color_primario;
+          text-align: center;
+          margin: 0;
+        }
+      }
+      .tc_adults{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+      .tc_icono{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        .color_verde{
+          color: green;
+          font-size: 30px;
+          position: absolute;
+          bottom: -35px;
+        }
+        .color_amarillo{
+          color: $color_primario;
+          font-size: 30px;
+          position: absolute;
+          bottom: -35px;
+        }
+        .color_rojo{
+          color: red;
+          font-size: 30px;
+          position: absolute;
+          bottom: -15px;
+        }
+      }
+    }
+  }
+}

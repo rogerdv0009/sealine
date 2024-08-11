@@ -1,0 +1,192 @@
+/***RESPONSIVE LG***/
+@media (min-width: 992px) {
+
+  /***LOGIN***/
+  .body{
+    .contenedor_login{
+      .formulario_login{
+        .formulario{
+          .fl_flex{
+            flex-direction: row;
+            gap: 30px;
+          }
+        }
+      }
+    }
+  }
+
+  /***NAVEGATIONS***/
+  .header {
+    .navbar_top{
+      display: block;
+      padding: 15px 0;
+      background-color: rgb(21, 21, 21);
+      .nt_contenedor{
+        .nt_contacto{
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          gap: 10px;
+          .nt_c_info{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            color: white;
+            gap: 10px;
+            i{
+              color: $color_primario;
+            }
+            p{
+              margin: 0;
+            }
+          }
+        }
+      }
+      .nt_redes_sociales{
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 5px;
+        a{
+          color: gray;
+          transition: all .5s;
+          &:hover{
+            color: white;
+          }
+        }
+      }
+    }
+    .navbar{
+      .nt_contenedor{
+        #navbarNav{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .nav_listado{
+            flex-direction: row;
+            justify-content: stretch;
+            align-items: center;
+            margin: 0;
+            gap: 10px;
+            li{
+              &:first-child{
+                a{
+                  font-weight: 600;
+                  text-transform: uppercase;
+                  color: $color_primario;
+                  &::after{
+                    position: relative;
+                    content: "";
+                    display: block;
+                    height: 3px;
+                    width: 100%;
+                    background-color: $color_primario;
+                  }
+                }
+              }
+              a{
+                font-weight: 600;
+                text-transform: uppercase;
+                position: relative;
+                color: black;
+                background-color: transparent;
+                display: block;
+                &::after{
+                  position: relative;
+                  content: "";
+                  display: block;
+                  height: 3px;
+                  width: 0;
+                  background-color: $color_primario;
+                  transition: all .5s;
+                }
+                &:hover{
+                  color: $color_primario;
+                  &::after{
+                    width: 100%;
+                  }
+                }
+              }
+              .lg_ocultar{
+                display: none;
+              }
+            }
+          }
+        }
+        .nav_enlace{
+          display: block;
+        }
+        .user_avatar{
+          height: 60px;
+          width: 60px;
+          border-radius: 50%;
+          img{
+            border-radius: 50%;
+            max-width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+
+  /***PROMOTIONS***/
+  .promociones {
+    .mySwiperPromotion {
+      .card_wrapper {
+        .swiper-slide {
+          .promocion {
+            .contenido_promocion {
+              padding-left: 50px;
+
+              .cp_titulo {
+                max-width: 50%;
+              }
+
+              .cp_descripcion {
+                max-width: 50%;
+              }
+            }
+          }
+        }
+      }
+
+      .swiper-pagination {
+        left: 0;
+        padding-left: 50px;
+        text-align: left;
+      }
+    }
+  }
+
+  /***FORMULARIO***/
+  .formulario_tours{
+    padding: 0 20px;
+    display: flex;
+    justify-content: end;
+    .ft_form{
+      z-index: 10;
+      position: absolute;
+      top: -550px;
+      width: 400px;
+      background-color: rgba(245, 245, 245, 0.800);
+      .ft_segundo{
+        flex-direction: row;
+        gap: 10px;
+      }
+    }
+  }
+
+  /***NEWS***/
+  .seccion_noticias {
+    .contenedor_noticias {
+      .mySwiperNews {
+        .card-wrapper {
+          padding: 0 0 80px;
+        }
+      }
+    }
+  }
+
+}

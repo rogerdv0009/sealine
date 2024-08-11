@@ -1,0 +1,30 @@
+.listado_usuarios{
+  padding: 60px 0;
+  .completo_listado{
+    .tabla_usuarios{
+      padding: 30px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      #tabla_usuario_wrapper{
+        width: 100%;
+        .tabla_usuario{
+          width: 100%;
+          margin: 20px 0;
+          tbody{
+            .odd{
+              height: 40px;
+              background-color: transparent;
+              color: black;
+            }
+            .even{
+              height: 40px;
+              background-color: whitesmoke;
+              color: black;
+            }
+          }
+        }
+      }
+    }
+  }
+}

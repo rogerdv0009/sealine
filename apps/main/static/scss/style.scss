@@ -1,0 +1,25 @@
+@import "general";
+@import "login";
+@import "navegador";
+@import "promotion";
+@import "formulario";
+@import "tours";
+@import "services";
+@import "news";
+@import "testimonial";
+@import "footer";
+/***PAGINAS INTERNAS***/
+@import "about_us/aboutus";
+@import "news_section/newssection";
+@import "services_section/servicessection";
+@import "tours_section/tourssection";
+@import "users_section/users_section.scss";
+@import "tickets_section/tickets_section.scss";
+@import "comments_section/comments_section";
+/***############################################################################***/
+@import "object_details/object_details";
+@import "responsive_sealine/sm";
+@import "responsive_sealine/md";
+@import "responsive_sealine/lg";
+@import "responsive_sealine/xl";
+@import "responsive_sealine/xxl";

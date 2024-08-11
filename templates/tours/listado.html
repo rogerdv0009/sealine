@@ -1,0 +1,89 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Tours{% endblock title %}
+{% block contain %}
+
+<section class="buscar_listado" style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %});">
+    <div class="formulario_buscar">
+        <form class="fb_formulario" action="" method="get">
+            <h3>Tours</h3>
+            {% if request.user.is_superuser %}
+                <button type="button" class="submit_modal" onclick="CrearTour('{% url "Tours_Create" %}')">Crear <i class="fas fa-plus"></i></button>
+            {% endif %}
+            <div>
+                <input value="{{ request.GET.buscar_input }}" type="search" class="buscar_input" name="buscar_input" placeholder="Buscar...">
+                <button type="submit" class="buscar_boton">Buscar</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="listado_tours">
+    <div class="container-fluid">
+        <div class="row">
+            {% if object_list %}
+                {% for object in object_list %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="tour">
+                            <div class="imagen_tour">
+                              {% if object.image %}
+                                <img src="/media/{{ object.image }}" alt="...">
+                              {% else %}
+                                <img src="{% static "img/sinfoto.png" %}" alt="...">
+                              {% endif %}
+                              <div class="link_dentro">
+                                <a href="{% url "Tours_Detail" object.id %}" class="ts_link">Saber más</a>
+                                {% if request.user.is_superuser %}
+                                    <div class="ld_opciones">
+                                        <button title="Editar" onclick="EditarTour('{% url "Tours_Update" object.id %}')"><i class="fas fa-pencil"></i></button>
+                                        <button title="Eliminar" onclick="EliminarTour('{% url "Tours_Delete" object.id %}')"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                {% endif %}
+                              </div>
+                            </div>
+                            <div class="contenido_tour">
+                              <div class="ct_titulo">
+                                <a href="#"><h5>{{ object.title }}</h5></a>
+                              </div>
+                              <div class="ct_precio">
+                                <h5>From ${{ object.price }}</h5>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2>No existen objetos de este tipo en la Base de Datos</h2>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="crear_tour" role="dialog">
+
+</div>
+<div class="modal fade" id="editar_tour" role="dialog">
+
+</div>
+<div class="modal fade" id="eliminar_tour" role="dialog">
+
+</div>
+{% endblock contain %}
+{% block javascript %}
+    <script type="application/javascript">
+        function CrearTour(url){
+            $('#crear_tour').load(url, function(){
+                $('#crear_tour').modal('show');
+            });
+        }
+        function EditarTour(url){
+            $('#editar_tour').load(url, function(){
+                $('#editar_tour').modal('show');
+            });
+        }
+        function EliminarTour(url){
+            $('#eliminar_tour').load(url, function(){
+                $('#eliminar_tour').modal('show');
+            });
+        }
+    </script>
+{% endblock javascript %}

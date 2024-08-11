@@ -1,0 +1,101 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Noticias{% endblock title %}
+{% block contain %}
+
+<section class="buscar_listado" style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %});">
+    <div class="formulario_buscar">
+        <form class="fb_formulario" action="" method="get">
+            <h3>Noticias</h3>
+            {% if request.user.is_superuser %}
+                <a href="{% url "Comments_List" %}" class="submit_modal_inverse">Comentarios</a>
+                <button type="button" class="submit_modal" onclick="CrearNoticia('{% url "News_Create" %}')">Crear <i class="fas fa-plus"></i></button>
+            {% endif %}
+            <div>
+                <input value="{{ request.GET.buscar_input }}" type="search" class="buscar_input" name="buscar_input" placeholder="Buscar...">
+                <button type="submit" class="buscar_boton">Buscar</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="listado_noticias">
+    <div class="container-fluid">
+        <div class="row">
+            {% if object_list %}
+                {% for object in object_list %}
+                    <div class="col-12 col-md-6">
+                        <div class="noticia">
+                            <div class="ntc_imagen">
+                            {% if object.image %}
+                                <img src="/media/{{ object.image }}" alt="...">
+                            {% else %}
+                                <img src="{% static "img/sinfoto.png" %}" alt="...">
+                            {% endif %}
+                            </div>
+                            <div class="ntc_contenido">
+                                <div class="ntc_c_autor_categoria">
+                                    <a href="#" class="ntc_c_categoria">{{ object.category }}</a>
+                                    <div class="ntc_c_autor">
+                                    <p>por <a href="#">{{ object.autor }}</a></p>
+                                    {% if request.user.is_superuser %}
+                                        <div class="ntc_opciones">
+                                            <button title="Editar" onclick="EditarNoticia('{% url "News_Update" object.id %}')" class="editar_color"><i class="fas fa-pencil"></i></button>
+                                            <button title="Eliminar" onclick="EliminarNoticia('{% url "News_Delete" object.id %}')" class="eliminar_color"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="ntc_c_titulo">
+                                <a href="{% url "News_Detail" object.id %}"><h4>{{ object.title }}</h4></a>
+                            </div>
+                            </div>
+                            <hr>
+                            <div class="ntc_final">
+                            <div class="ntc_f_fecha">
+                                <p>{{ object.date }}</p>
+                            </div>
+                            <div class="ntc_f_comentarios">
+                                <i class="fas fa-comment-alt"></i>
+                                <a href="#">12</a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2>No existen objetos de este tipo en la Base de Datos</h2>
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="crear_noticia" role="dialog">
+
+</div>
+<div class="modal fade" id="editar_noticia" role="dialog">
+
+</div>
+<div class="modal fade" id="eliminar_noticia" role="dialog">
+
+</div>
+{% endblock contain %}
+{% block javascript %}
+    <script type="application/javascript">
+        function CrearNoticia(url){
+            $('#crear_noticia').load(url, function(){
+                $('#crear_noticia').modal('show');
+            });
+        }
+        function EditarNoticia(url){
+            $('#editar_noticia').load(url, function(){
+                $('#editar_noticia').modal('show');
+            });
+        }
+        function EliminarNoticia(url){
+            $('#eliminar_noticia').load(url, function(){
+                $('#eliminar_noticia').modal('show');
+            });
+        }
+    </script>
+{% endblock javascript %}

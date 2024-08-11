@@ -1,0 +1,81 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Servicios{% endblock title %}
+{% block contain %}
+
+<section class="buscar_listado" style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %});">
+    <div class="formulario_buscar">
+        <form class="fb_formulario" action="" method="get">
+            <h3>Servicios</h3>
+            {% if request.user.is_superuser %}
+                <button type="button" class="submit_modal" onclick="CrearServicio('{% url "Services_Create" %}')">Crear <i class="fas fa-plus"></i></button>
+            {% endif %}
+            <div>
+                <input value="{{ request.GET.buscar_input }}" type="search" class="buscar_input" name="buscar_input" placeholder="Buscar...">
+                <button type="submit" class="buscar_boton">Buscar</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="listado_servicios">
+    <div class="container-fluid">
+        <div class="row">
+            {% if object_list %}
+                {% for object in object_list %}
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                        <div class="servicio">
+                            <div class="sv_icono">
+                              <i class="{{ object.icon }}"></i>
+                            </div>
+                            <div class="sv_titulo">
+                              <h4>{{ object.title }}</h4>
+                            </div>
+                            <hr>
+                            <div class="sv_descripcion">
+                              <p>{{ object.description }}</p>
+                            </div>
+                            {% if request.user.is_superuser %}
+                                <div class="sv_opciones">
+                                    <button title="Editar" onclick="EditarServicio('{% url "Services_Update" object.id %}')" class="editar_color"><i class="fas fa-pencil"></i></button>
+                                    <button title="Eliminar" onclick="EliminarServicio('{% url "Services_Delete" object.id %}')" class="eliminar_color"><i class="fas fa-trash"></i></button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2>No existen objetos de este tipo en la Base de Datos</h2>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="crear_servicio" role="dialog">
+
+</div>
+<div class="modal fade" id="editar_servicio" role="dialog">
+
+</div>
+<div class="modal fade" id="eliminar_servicio" role="dialog">
+
+</div>
+{% endblock contain %}
+{% block javascript %}
+    <script type="application/javascript">
+        function CrearServicio(url){
+            $('#crear_servicio').load(url, function(){
+                $('#crear_servicio').modal('show');
+            });
+        }
+        function EditarServicio(url){
+            $('#editar_servicio').load(url, function(){
+                $('#editar_servicio').modal('show');
+            });
+        }
+        function EliminarServicio(url){
+            $('#eliminar_servicio').load(url, function(){
+                $('#eliminar_servicio').modal('show');
+            });
+        }
+    </script>
+{% endblock javascript %}

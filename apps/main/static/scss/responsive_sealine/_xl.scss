@@ -1,0 +1,154 @@
+/***RESPONSIVE XL***/
+@media (min-width: 1200px) {
+  /***GENERAL***/
+  .buscar_listado{
+    padding: 200px 0;
+    .formulario_buscar{
+      .fb_formulario{
+        gap: 30px;
+        h3{
+          font-size: 40px;
+          font-weight: 700;
+        }
+        div{
+          .buscar_input{
+            width: 500px;
+          }
+        }
+      }
+    }
+  }
+  /***NAVEGATIONS***/
+  .header {
+    .navbar_top {
+      .nt_redes_sociales {
+        gap: 10px;
+        a {
+          font-size: 18px;
+        }
+      }
+    }
+    .navbar{
+      #navbarNav{
+        .nav_listado{
+          li{
+            a{
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /***PROMOTIONS***/
+  .promociones {
+    .mySwiperPromotion {
+      .card_wrapper {
+        .swiper-slide {
+          .promocion {
+            .contenido_promocion {
+              padding-left: 80px;
+
+              .cp_titulo {
+                max-width: 40%;
+              }
+
+              .cp_descripcion {
+                max-width: 40%;
+              }
+            }
+          }
+        }
+      }
+
+      .swiper-pagination {
+        padding-left: 80px;
+      }
+    }
+  }
+
+  /***FORMULARIO***/
+  .formulario_tours{
+    padding: 0 50px;
+    .ft_form{
+      width: 500px;
+    }
+  }
+
+  /***NEWS***/
+  .seccion_noticias {
+    .contenedor_noticias {
+      .mySwiperNews {
+        .card-wrapper {
+          padding: 0 0 80px;
+
+          .swiper-slide {
+            .noticia{
+              .ntc_contenido{
+                padding: 20px 30px 0;
+              }
+              .ntc_final{
+                padding: 0 30px
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /***TESTIMONIALS***/
+  .seccion_testimonios{
+    .contenedor_testimonios{
+      .mySwiperTestimonials{
+        .card-wrapper{
+          .swiper-slide{
+            .testimonio{
+              .ts_imagen{
+                display: flex;
+                justify-content: end;
+                align-items: start;
+              }
+            }
+          }
+        }
+        .swiper-button-next{
+            display: block;
+          &::after{
+            padding: 5px 10px;
+            font-size: 30px;
+            color: white;
+            background-color: $color_primario;
+            border-radius: 10px;
+          }
+        }
+        .swiper-button-prev{
+          display: block;
+          &::after{
+            padding: 5px 10px;
+            font-size: 30px;
+            color: white;
+            background-color: $color_primario;
+            border-radius: 10px;
+          }
+        }
+        .swiper-pagination{
+          display: none;
+        }
+      }
+    }
+  }
+
+  /***INTERNAL PAGE NEWS***/
+  .listado_noticias{
+    .noticia{
+      .ntc_contenido{
+        padding: 20px 30px 0;
+      }
+      .ntc_final{
+        padding: 0 30px
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Tickets{% endblock title %}
+{% block contain %}
+
+<section class="buscar_listado" style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %});">
+    <div class="formulario_buscar">
+        <form class="fb_formulario" action="" method="get">
+            <h3>Tickets</h3>
+        </form>
+    </div>
+</section>
+
+<section class="listado_tickets">
+    <div class="titulo_seccion">
+        <div class="ts_principal">
+            <h3>Listado de tickets existentes</h3>
+            <div class="divisor_decorador img_mid">
+                <img src="{% static "img/divider-decorate.png" %}" alt="...">
+            </div>
+        </div>
+        <button type="button" class="submit_modal" onclick="CrearTicket('{% url "Tickets_Create" %}')">Crear <i class="fas fa-plus"></i></button>
+        <form class="filtrar_c" action="{% url 'Tickets_List' %}" method="get">
+            {% csrf_token %}
+            <select class="form-control" name="select_filtrado" id="revisado">
+                <option value="General">General</option>
+                <option value="True">Aprobados</option>
+                <option value="False">Sin aprobar</option>
+            </select>
+            <button type="submit" class="btn btn-warning"><i class="fas fa-filter"></i></button>
+        </form>
+    </div>
+    <div class="container">
+        <div class="tabla_usuarios">
+          <table class="tabla_usuario" id="tabla_tickets">
+              <thead>
+                  {% block columns %}
+                      <tr>
+                          <th style="width: 10%; padding: 3px;  border-bottom: 1px solid black;">Usuario</th>
+                          <th style="width: 20%; padding: 3px;  border-bottom: 1px solid black;">De</th>
+                          <th style="width: 20%; padding: 3px;  border-bottom: 1px solid black;">Para</th>
+                          <th style="width: 20%; padding: 3px; text-align: center; border-bottom: 1px solid black;">Fecha</th>
+                          <th style="width: 30%; padding: 3px; text-align: center; border-bottom: 1px solid black;">Acción</th>
+                      </tr>
+                  {% endblock %}
+              </thead>
+              <tbody>
+                  {% block rows %}
+                      {% if object_list %}
+                          {% for object in object_list %}
+                              <tr class="fila">
+                                    <td style="width: 10%;">{{ object.ft_user.username }}</td>
+                                    <td style="width: 20%;">{{ object.ft_from }}</td>
+                                    <td style="width: 20%;">{{ object.ft_to }}</td>
+                                    <td style="width: 20%;">{{ object.ft_date }}</td>
+                                    <td style="width: 30%; text-align: center;">
+                                        <button title="Editar" type="button" onclick="EditarTicket('{% url "Tickets_Update" object.pk %}')" class="editar_color"><i class="fas fa-pencil"></i></button>
+                                        <button title="Eliminar" type="button" onclick="EliminarTicket('{% url "Tickets_Delete" object.pk %}')" class="eliminar_color"><i class="fas fa-trash"></i></button>
+                                        {% if object.ft_check == False %}
+                                            <a title="Aprobar" href="{% url "Tickets_Check" object.pk %}" class="aprobar_color"><i class="fas fa-check-circle"></i></a>
+                                        {% else %}
+                                            <i class="color_verde fas fa-bookmark"></i>
+                                        {% endif %}
+                                    </td>
+                              </tr>
+                          {% endfor %}
+                      {% else %}
+                        <h2>No existen Tickets creados en la Base de Datos</h2>
+                      {% endif %}
+                  {% endblock %}
+              </tbody>
+          </table>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="crear_ticket" role="dialog">
+
+</div>
+<div class="modal fade" id="editar_ticket" role="dialog">
+
+</div>
+<div class="modal fade" id="eliminar_ticket" role="dialog">
+
+</div>
+{% endblock contain %}
+{% block javascript %}
+    <script type="application/javascript">
+        function CrearTicket(url){
+            $('#crear_ticket').load(url, function(){
+                $('#crear_ticket').modal('show');
+            });
+        }
+        function EditarTicket(url){
+            $('#editar_ticket').load(url, function(){
+                $('#editar_ticket').modal('show');
+            });
+        }
+        function EliminarTicket(url){
+            $('#eliminar_ticket').load(url, function(){
+                $('#eliminar_ticket').modal('show');
+            });
+        }
+    </script>
+    <script type="application/javascript">
+        $(function () {
+            $('#tabla_tickets').DataTable({
+                responsive: true,
+                autoWidth: false,
+            });
+        });
+    </script>
+    <script src="{% static 'libraries/datatable/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'libraries/datatable/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'libraries/datatable/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'libraries/datatable/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
+{% endblock javascript %}

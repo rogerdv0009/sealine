@@ -1,0 +1,44 @@
+.listado_servicios{
+  background-color: whitesmoke;
+  padding: 60px 0;
+  .servicio{
+    border: 1px solid #dfe1ea;
+    border-radius: 10px;
+    padding: 20px 10px;
+    transition: all .5s;
+    margin-bottom: 20px;
+    &:hover{
+      box-shadow: 0 10px 32px rgba(129, 132, 146, 0.14);
+      background-color: white;
+      border: 1px solid transparent;
+    }
+    hr{
+      color: gray;
+    }
+    .sv_icono{
+      margin-bottom: 20px;
+      i{
+        font-size: 28px;
+        color: $color_primario;
+      }
+    }
+    .sv_titulo{
+      h4{
+        color: black;
+      }
+    }
+    .sv_descripcion{
+      color: gray;
+    }
+    .sv_opciones{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+      gap: 20px;
+      a{
+        font-size: 20px;
+      }
+    }
+  }
+}
